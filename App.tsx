@@ -32,10 +32,6 @@ const carouselImages = [
 
 // --- Helpers ---
 
-/**
- * Realiza el scroll suave hasta la sección de oferta.
- * Se llama sin argumentos para evitar pasar el objeto de evento de React.
- */
 const handleScrollToPricing = () => {
   const pricingSection = document.getElementById('pricing');
   if (pricingSection) {
@@ -43,17 +39,12 @@ const handleScrollToPricing = () => {
   }
 };
 
-/**
- * Redirecciona al checkout preservando todos los parámetros de la URL actual.
- * Se utiliza window.location.href y se limpia el paso de eventos para evitar errores de estructura circular.
- */
 const handleRedirectToCheckout = () => {
   const baseUrl = "https://pay.hotmart.com/I104520274R?off=o5jzsn0i&checkoutMode=10";
   const currentParams = window.location.search;
   
   let finalUrl = baseUrl;
   if (currentParams) {
-    // Si hay parámetros, los añadimos. El link base ya tiene '?', así que usamos '&'
     const cleanParams = currentParams.startsWith('?') ? currentParams.substring(1) : currentParams;
     finalUrl += `&${cleanParams}`;
   }
@@ -238,7 +229,7 @@ const Bonuses = () => (
           { 
             title: "Bono 2: Checklist de Compras Inteligentes", 
             val: "$15 USD", 
-            desc: "Ahorra dinero comprando solo lo que realmente necesitas. No más gastos innecesarios." 
+            desc: "Ahorra dinero comprando solo lo que realmente necesitas. No más gastos inesperarios." 
           },
           { 
             title: "Bono 3: Manual 'Evita los errores típicos'", 
@@ -293,13 +284,14 @@ const Pricing = () => (
             </li>
           ))}
         </ul>
-        <button 
-          onClick={() => handleRedirectToCheckout()}
-          className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 group text-center"
+        <a 
+          href="#checkout"
+          onClick={(e) => { e.preventDefault(); handleRedirectToCheckout(); }}
+          className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 group text-center cursor-pointer"
         >
           ¡SÍ, QUIERO MI CASA NUEVA AHORA!
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-        </button>
+        </a>
         <p className="text-center text-xs text-slate-400 mt-4 italic">
           Compra 100% segura y encriptada.
         </p>
@@ -329,12 +321,13 @@ const FinalCTA = () => (
       <p className="text-lg text-slate-600 mb-10">
         Esta oferta especial con bonos incluidos está por terminar. Únete a los miles de latinos que ya están transformarndo sus casas hoy.
       </p>
-      <button 
-        onClick={() => handleScrollToPricing()}
-        className="bg-indigo-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all mb-4"
+      <a 
+        href="#pricing"
+        onClick={(e) => { e.preventDefault(); handleScrollToPricing(); }}
+        className="inline-block bg-indigo-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all mb-4 cursor-pointer"
       >
         Empezar mi transformación hoy
-      </button>
+      </a>
       <div className="flex items-center justify-center gap-4 text-sm text-slate-500 font-medium">
         <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Cupos limitados</span>
         <span className="flex items-center gap-1"><Wallet className="w-4 h-4" /> Un solo pago</span>
@@ -373,6 +366,7 @@ const FAQ = () => {
           {faqs.map((faq, idx) => (
             <div key={idx} className="border border-slate-200 rounded-xl overflow-hidden">
               <button 
+                type="button"
                 onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
                 className="w-full flex justify-between items-center p-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors"
               >
@@ -408,13 +402,14 @@ const Footer = () => (
 
 const MediumCTA = () => (
   <div className="flex justify-center py-8">
-    <button 
-      onClick={() => handleScrollToPricing()}
-      className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 shadow-lg hover:shadow-indigo-200 transition-all flex items-center gap-2 group"
+    <a 
+      href="#pricing"
+      onClick={(e) => { e.preventDefault(); handleScrollToPricing(); }}
+      className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 shadow-lg hover:shadow-indigo-200 transition-all flex items-center gap-2 group cursor-pointer"
     >
       ¡QUIERO EL DESCUENTO AHORA!
       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-    </button>
+    </a>
   </div>
 );
 
