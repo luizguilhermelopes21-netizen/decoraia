@@ -495,12 +495,26 @@ const SecretOfferPopup = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
 
   const handleClaimOffer = () => {
     // Link da Oferta Exclusiva (Upsell)
-    window.location.href = "https://pay.cakto.com.br/fqfo8ed_778171";
+    const baseUrl = "https://pay.cakto.com.br/fqfo8ed_778171";
+    const currentParams = window.location.search;
+    let finalUrl = baseUrl;
+    if (currentParams) {
+      const cleanParams = currentParams.startsWith('?') ? currentParams.substring(1) : currentParams;
+      finalUrl += (finalUrl.includes('?') ? '&' : '?') + cleanParams;
+    }
+    window.location.href = finalUrl;
   };
 
   const handleBasicRedirect = () => {
     // Link do Plano Básico (Downsell)
-    window.location.href = "https://pay.cakto.com.br/yesmq26_778155";
+    const baseUrl = "https://pay.cakto.com.br/yesmq26_778155";
+    const currentParams = window.location.search;
+    let finalUrl = baseUrl;
+    if (currentParams) {
+      const cleanParams = currentParams.startsWith('?') ? currentParams.substring(1) : currentParams;
+      finalUrl += (finalUrl.includes('?') ? '&' : '?') + cleanParams;
+    }
+    window.location.href = finalUrl;
   };
 
   return (
